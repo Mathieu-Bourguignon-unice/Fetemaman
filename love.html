@@ -39,7 +39,7 @@
 .heart-button {
   width: 160px;
   height: 160px;
-  background-image: url('coeur.png'); /* ✅ assure-toi que ce fichier est bien dans le même dossier */
+  background-image: url('coeur.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -59,7 +59,7 @@
   text-align: center;
   line-height: 1.2;
   pointer-events: none;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* meilleure lisibilité */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   padding: 0 5px;
 }
 
@@ -285,7 +285,6 @@
         playMusic();
         document.getElementById('music-toggle').style.display = 'block';
 
-        // Inclinaison aléatoire des images
         document.querySelectorAll('.photo-stack img').forEach(img => {
           const angle = (Math.random() * 10 - 5).toFixed(1);
           img.style.setProperty('--angle', `${angle}deg`);
