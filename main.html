@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bonne fête Maman ❤️</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(180deg, #fff0f6, #ffe6f0, #fff0f6);
+      animation: bgTransition 20s ease-in-out infinite alternate;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    @keyframes bgTransition {
+      0% { background-position: top; }
+      100% { background-position: bottom; }
+    }
+
+    .start-screen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #fff0f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      transition: opacity 1s ease-out;
+      pointer-events: all;
+    }
+
+.heart-wrapper {
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.heart-button {
+  position: relative;
+  width: 100px;
+  height: 90px;
+  background: #ff6b81;
+  transform: rotate(-45deg);
+  border: none;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.heart-button::before,
+.heart-button::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 90px;
+  background: #ff6b81;
+  border-radius: 50%;
+}
+
+.heart-button::before {
+  top: -50px;
+  left: 0;
+}
+
+.heart-button::after {
+  left: 50px;
+  top: 0;
+}
+
+.heart-button span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.3;
+  width: 100px;
+  pointer-events: none;
+}
+
+
+
+
+    .music-toggle {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #ff6b81;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      z-index: 2;
+      font-size: 14px;
+      display: none;
+    }
+
+    .content {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 1s, transform 1s;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .show-content .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .photo-stack {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .photo-stack img {
+      width: 320px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 3px 3px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+      transform: rotate(var(--angle, 0deg));
+      z-index: 1;
+      position: relative;
+    }
+
+    .photo-stack img:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    .love-message {
+      font-size: 24px;
+      margin: 20px;
+      color: #d6336c;
+    }
+
+    .hearts-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatEmoji 10s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatEmoji {
+      0% { transform: translateY(0vh) scale(0.5) rotate(0deg); opacity: 0; }
+      30% { opacity: 0.8; }
+      100% { transform: translateY(-120vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    .emoji-burst {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .emoji-particle {
+      position: absolute;
+      font-size: 24px;
+      animation: burstEmoji 2s ease-out forwards;
+    }
+
+    @keyframes burstEmoji {
+      0% { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(calc(-50vw + 100px), -100vh) scale(2); opacity: 0; }
+    }
+
+    @keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.heart-button:hover {
+  animation: beat 0.6s infinite;
+}
+
+  </style>
+</head>
+<body>
+  <audio id="background-music" src="ta_musique.mp3" loop></audio>
+
+  <button class="music-toggle" id="music-toggle" onclick="toggleMusic()">🔊 Couper la musique</button>
+
+<div class="start-screen">
+  <div class="heart-wrapper">
+    <button class="heart-button" onclick="startLove()">
+      <span>Clique-moi ❤️</span>
+    </button>
+  </div>
+</div>
+
+
+  <div class="emoji-burst" id="emoji-burst"></div>
+  <div class="hearts-bg" id="hearts-bg"></div>
+
+  <div class="content">
+    <h1 style="font-size: 48px; color: #ff4d6d;">Bonne fête Maman ! 💖</h1>
+
+<div class="love-message">Merci d'être toujours là pour nous 🌟</div>
+<div class="photo-stack">
+  <img src="photos/maman1.jpg"><img src="photos/maman2.jpg"><img src="photos/maman3.jpg"><img src="photos/maman4.jpg">
+</div>
+
+<div class="love-message">Ton sourire réchauffe toutes nos journées ☀️</div>
+<div class="photo-stack">
+  <img src="photos/maman5.jpg"><img src="photos/maman6.jpg"><img src="photos/maman7.jpg"><img src="photos/maman8.jpg">
+</div>
+
+<div class="love-message">Tu es notre douceur dans un monde agité 🍃</div>
+<div class="photo-stack">
+  <img src="photos/maman9.jpg"><img src="photos/maman10.jpg"><img src="photos/maman11.jpg"><img src="photos/maman12.jpg">
+</div>
+
+<div class="love-message">Chaque moment avec toi est un cadeau 🎁</div>
+<div class="photo-stack">
+  <img src="photos/maman13.jpg"><img src="photos/maman14.jpg"><img src="photos/maman15.jpg"><img src="photos/maman16.jpg">
+</div>
+
+<div class="love-message">On t’aime plus que les mots ne peuvent le dire ❤️</div>
+<div class="photo-stack">
+  <img src="photos/maman17.jpg"><img src="photos/maman18.jpg"><img src="photos/maman19.jpg"><img src="photos/maman20.jpg">
+</div>
+
+<div class="love-message">Et quand on pense à toi… c’est le bonheur instantané 🌸</div>
+<div class="photo-stack">
+  <img src="photos/maman21.jpg"><img src="photos/maman22.jpg"><img src="photos/maman23.jpg"><img src="photos/maman24.jpg">
+</div>
+
+<div class="love-message">Merci pour tout l’amour, la force, la tendresse 💪💕</div>
+<div class="photo-stack">
+  <img src="photos/maman25.jpg"><img src="photos/maman26.jpg"><img src="photos/maman27.jpg"><img src="photos/maman28.jpg">
+</div>
+
+<div class="love-message">On a tant de souvenirs à chérir grâce à toi 🥰</div>
+<div class="photo-stack">
+  <img src="photos/maman29.jpg"><img src="photos/maman30.jpg"><img src="photos/maman31.jpg"><img src="photos/maman32.jpg">
+</div>
+
+<div class="love-message">Tu es une maman exceptionnelle, unique au monde 🌍</div>
+<div class="photo-stack">
+  <img src="photos/maman33.jpg"><img src="photos/maman34.jpg"><img src="photos/maman35.jpg"><img src="photos/maman36.jpg">
+</div>
+
+<div class="love-message">On t’aime fort, aujourd’hui et pour toujours 💗</div>
+<div class="photo-stack">
+  <img src="photos/maman37.jpg"><img src="photos/maman38.jpg"><img src="photos/maman39.jpg"><img src="photos/maman40.jpg">
+</div>
+
+<div class="love-message">🎥 Un petit souvenir en vidéo rien que pour toi...</div>
+<video width="360" controls style="transform: rotate(-90deg); transform-origin: center; margin: 20px auto; display: block; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.2);">
+  <source src="mamanvideo.mp4" type="video/mp4">
+  Ton navigateur ne supporte pas la vidéo.
+</video>
+
+<div class="love-message">Et une autre vidéo pleine d’émotion 😍</div>
+<video width="320" controls style="border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 0 15px rgba(0,0,0,0.2);">
+  <source src="mamanvideo1.mp4" type="video/mp4">
+  Ton navigateur ne supporte pas la vidéo.
+</video>
+
+<div class="love-message" style="font-size: 32px; margin-top: 50px;">
+  Bonne fête Maman, on t’aime de tout notre cœur 💝
+</div>
+
+
+   <script>
+    let isPlaying = true;
+
+    function startLove() {
+      const startScreen = document.querySelector('.start-screen');
+      startScreen.style.opacity = 0;
+      triggerEmojiBurst();
+
+      setTimeout(() => {
+        startScreen.style.display = 'none';
+        startScreen.style.pointerEvents = 'none';
+        document.body.classList.add('show-content');
+        launchHearts();
+        playMusic();
+        document.getElementById('music-toggle').style.display = 'block';
+
+        // Inclinaison aléatoire des images
+        document.querySelectorAll('.photo-stack img').forEach(img => {
+          const angle = (Math.random() * 10 - 5).toFixed(1);
+          img.style.setProperty('--angle', `${angle}deg`);
+        });
+      }, 1800);
+    }
+
+    function triggerEmojiBurst() {
+      const container = document.getElementById('emoji-burst');
+      const emojis = ['💖','🎈','🌸','💝','💕','🌷','💘'];
+      for (let i = 0; i < 60; i++) {
+        const span = document.createElement('span');
+        span.classList.add('emoji-particle');
+        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.top = Math.random() * 100 + 'vh';
+        span.style.fontSize = 20 + Math.random() * 30 + 'px';
+        container.appendChild(span);
+      }
+      setTimeout(() => container.innerHTML = '', 2500);
+    }
+
+    function launchHearts() {
+      const container = document.getElementById('hearts-bg');
+      const emojis = ['💖', '❤️', '💕', '💘', '💝', '🎈', '🌸', '🌷', '🌹'];
+      for (let i = 0; i < 70; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.bottom = '-50px';
+        heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+        heart.style.fontSize = 20 + Math.random() * 20 + 'px';
+        heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        container.appendChild(heart);
+      }
+    }
+
+    function playMusic() {
+      const music = document.getElementById('background-music');
+      music.volume = 0.5;
+      music.play().catch(e => console.log("Autoplay bloqué :", e));
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById('background-music');
+      const btn = document.getElementById('music-toggle');
+      if (isPlaying) {
+        music.pause();
+        btn.textContent = '🔈 Relancer la musique';
+      } else {
+        music.play();
+        btn.textContent = '🔊 Couper la musique';
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
+</body>
+</html>
