@@ -36,65 +36,37 @@
       pointer-events: all;
     }
 
-.heart-wrapper {
-  animation: beat 1s infinite;
+.heart-button {
+  width: 160px;
+  height: 160px;
+  background-image: url('coeur.png'); /* ✅ assure-toi que ce fichier est bien dans le même dossier */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  animation: beat 1.3s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-text {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.2;
+  pointer-events: none;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* meilleure lisibilité */
+  padding: 0 5px;
 }
 
 @keyframes beat {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
 }
-
-.heart-button {
-  position: relative;
-  width: 100px;
-  height: 90px;
-  background: #ff6b81;
-  transform: rotate(-45deg);
-  border: none;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.heart-button::before,
-.heart-button::after {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 90px;
-  background: #ff6b81;
-  border-radius: 50%;
-}
-
-.heart-button::before {
-  top: -50px;
-  left: 0;
-}
-
-.heart-button::after {
-  left: 50px;
-  top: 0;
-}
-
-.heart-button span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 1.3;
-  width: 100px;
-  pointer-events: none;
-}
-
-
-
 
     .music-toggle {
       position: fixed;
@@ -219,13 +191,10 @@
   <button class="music-toggle" id="music-toggle" onclick="toggleMusic()">🔊 Couper la musique</button>
 
 <div class="start-screen">
-  <div class="heart-wrapper">
-    <button class="heart-button" onclick="startLove()">
-      <span>Clique-moi ❤️</span>
-    </button>
-  </div>
+  <button class="heart-button" onclick="startLove()">
+    <span class="heart-text">Clique-moi 💖</span>
+  </button>
 </div>
-
 
   <div class="emoji-burst" id="emoji-burst"></div>
   <div class="hearts-bg" id="hearts-bg"></div>
